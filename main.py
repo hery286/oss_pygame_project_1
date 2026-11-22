@@ -133,6 +133,9 @@ class Game:
         """게임 오버 처리."""
         self.game_over = True
         # TODO(F5): 이번 점수가 최고 점수보다 높으면 self.high_score 를 바꾸고 save_high_score() 로 저장할 것.
+        if self.score > self.high_score:
+            self.high_score = self.score
+            save_high_score(self.high_score)
 
     # ---------------- 그리기 ----------------
     def draw_text(self, text, font, color, **position):
@@ -176,7 +179,8 @@ class Game:
         self.draw_text("GAME OVER", self.big_font, RED, center=(cx, HEIGHT // 2 - 60))
         self.draw_text(f"SCORE: {self.score}", self.font, WHITE, center=(cx, HEIGHT // 2))
         # TODO(F5): 최고 점수("HIGH SCORE: 300")와 재시작 안내("Press R to restart")도 표시할 것.
-        
+        self.draw_text(f"HIGH SCORE: {self.high_score}", self.font, YELLOW, center=(cx, HEIGHT // 2 + 40))
+        self.draw_text("Press R to restart", self.font, WHITE, center=(cx, HEIGHT // 2 + 100))       
 
     # ---------------- 게임 루프 ----------------
     def step(self):
